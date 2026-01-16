@@ -24,5 +24,7 @@ urlpatterns = [
     path('clients/', views.LlistarClientsView.as_view(), name='llistar_clients'),
     path('clients/nou/', views.NouClientView.as_view(), name='nou_client'),
     path('clients/<str:codi_client>/', views.DetallClientView.as_view(), name='detall_client'),
-    path('clients/<str:codi_client>/editar/', views.EditarClientView.as_view(), name='editar_client'),
+    path('clients/<str:codi_client>/editar/', views.EditarClientView.as_view(), name='editar_client')
 ]
+
+handler404 = 'mp_app.views.page_not_found'
