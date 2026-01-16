@@ -36,7 +36,7 @@
                     <td class="d-none d-lg-table-cell">{{ client.poblacio }}</td>
                     <td>{{ client.telefon }}</td>
                     <td class="text-center align-middle">
-                        <a href="{% url 'detall_client' client.codi_client %}" class="btn btn-sm btn-warning">
+                        <a href="{% url 'detall_client' client.codi_client %}" class="btn btn-sm bg-dark-subtle">
                             <i class="bi bi-arrow-right"></i>
                         </a>
                     </td>
@@ -44,14 +44,17 @@
                 {% empty %}
                 <tr>
                     <td colspan="6" class="text-center text-muted">
-                        No hi ha clients actius.
+                        <div class="alert alert-warning text-center">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            No hi ha clients actius.
+                        </div>
                     </td>
                 </tr>
                 {% endfor %}
                 </tbody>
             </table>
         </div>
-        <a href="{% url 'nou_client' %}" class="btn btn-primary">
+        <a href="{% url 'nou_client' %}" class="btn bg-primary-subtle">
             + Nou Client
         </a>
     </div>
