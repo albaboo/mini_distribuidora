@@ -46,6 +46,15 @@ class Albara(models.Model):
     total = models.DecimalField(max_digits=10, decimal_places=2)
     observacions = models.TextField(null=True, blank=True)
 
+    def save(self, *args, **kwargs):
+        if not self.id:
+            super().save(*args, **kwargs)
+            self.numero_albara = f"ALB{self.id:03d}"
+            kwargs['force_insert'] = False
+            super().save(*args, **kwargs)
+        else:
+            super().save(*args, **kwargs)
+
     def calcular_total(self):
         self.total = sum(linea.subtotal for linea in self.lineas.all())
         self.save()

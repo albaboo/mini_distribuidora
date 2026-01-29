@@ -78,25 +78,48 @@ class LlistarAlbaransView(ListView):
     def get_queryset(self):
         return Albara.objects.all()
 
+#/albarans/<numero_albara>/
+class DetallAlbaraView(View):
+    def get(self, request, *args, **kwargs):
+        albara = Albara.objects.get(numero_albara=self.kwargs['numero_albara'])
+        return render(request, "albara/detall_albara.html", {'albara': albara})
+
+#/albarans/<numero_albara>/editar/
+class EditarAlbaraView(View):
+    def get(self,request, *args, **kwargs):
+        albara = Albara.objects.get(numero_albara=self.kwargs['numero_albara'])
+        return render(request, "albara/editar_albara.html", {"albara": albara})
+
+    def post(self,request, *args, **kwargs):
+        albara = Albara.objects.get(numero_albara=self.kwargs['numero_albara'])
+
+        albara.client = request.POST.get('client')
+        albara.data_creacio = request.POST.get('data_creacio')
+        albara.data_entrega_prevista = request.POST.get('data_entrega_prevista')
+        albara.estat = request.POST.get('estat')
+        albara.total = request.POST.get('total')
+        albara.observacions = request.POST.get('observacions')
+
+        albara.save()
+
+        return redirect('detall_albara', numero_albara=albara.numero_albara)
+
 # /albarans/nou/
 class NouAlbaraView(View):
     def get(self, request, *args, **kwargs):
-        return render(request, "client/nou_albara.html")
+        return render(request, "albara/nou_albara.html")
 
     def post(self,request, *args, **kwargs):
-        client = Client.objects.create(
-            nom_comercial=request.POST.get('nom_comercial'),
-            cif=request.POST.get('cif'),
-            persona_contacte=request.POST.get('persona_contacte'),
-            telefon=request.POST.get('telefon'),
-            email=request.POST.get('email'),
-            adreca_entrega=request.POST.get('adreca_entrega'),
-            poblacio=request.POST.get('poblacio'),
-            codi_postal=request.POST.get('codi_postal'),
-            actiu=request.POST.get('actiu') == 'on'
+        albara = Albara.objects.create(
+            client=request.POST.get('client'),
+            data_creacio=request.POST.get('data_creacio'),
+            data_entrega_prevista=request.POST.get('data_entrega_prevista'),
+            estat=request.POST.get('estat'),
+            total=request.POST.get('total'),
+            observacions=request.POST.get('observacions')
         )
 
-        return redirect('detall_client', codi_client=client.codi_client)
+        return redirect('detall_albara', numero_albara=albara.numero_albara)
 
 class HomeView(View):
     def get(self, request, *args, **kwargs):
