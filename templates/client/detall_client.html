@@ -99,7 +99,7 @@
         <div class="card-body">
             {% if albarans %}
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table class="table table-borderless table-striped table-hover">
                     <thead class="table-dark">
                     <tr>
                         <th>Número</th>
@@ -107,12 +107,11 @@
                         <th>Data entrega prevista</th>
                         <th>Estat</th>
                         <th>Total</th>
-                        <th>Accions</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for albara in albarans %}
-                    <tr>
+                    <tr style='cursor: pointer;' onclick="window.location.href='{% url 'detall_albara' albara.numero_albara %}';">
                         <td>{{ albara.numero_albara|default:"Sense número" }}</td>
                         <td>{{ albara.data_creacio|date:"d/m/Y H:i" }}</td>
                         <td>{{ albara.data_entrega_prevista|date:"d/m/Y" }}</td>
@@ -132,9 +131,6 @@
                             {% endif %}
                         </td>
                         <td><b>{{ albara.total|default:"0.00" }} €</b></td>
-                        <td>
-                            <a href="{% url 'detall_albara' albara.numero_albara %}" class="btn btn-sm btn-outline-primary">Veure</a>
-                        </td>
                     </tr>
                     {% endfor %}
                     </tbody>
