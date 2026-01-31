@@ -60,7 +60,7 @@ class Albara(models.Model):
         self.save()
         return self.total
 
-class LineaAlbara(models.Model):
+class LlineaAlbara(models.Model):
     albara = models.ForeignKey(Albara, on_delete=models.CASCADE, related_name='lineas')
     nom_producte = models.CharField()
     quantitat = models.IntegerField()
