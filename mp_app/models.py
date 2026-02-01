@@ -56,12 +56,12 @@ class Albara(models.Model):
             super().save(*args, **kwargs)
 
     def calcular_total(self):
-        self.total = sum(linea.subtotal for linea in self.lineas.all())
+        self.total = sum(linia.subtotal for linia in self.linies.all())
         self.save()
         return self.total
 
-class LlineaAlbara(models.Model):
-    albara = models.ForeignKey(Albara, on_delete=models.CASCADE, related_name='lineas')
+class LiniaAlbara(models.Model):
+    albara = models.ForeignKey(Albara, on_delete=models.CASCADE, related_name='linies')
     nom_producte = models.CharField()
     quantitat = models.IntegerField()
     preu_unitari = models.DecimalField(max_digits=10, decimal_places=2)

@@ -3,77 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nou Albara</title>
+    <title>Nova Linia</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 </head>
 <body>
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-        <h1>Nou Albara</h1>
-        <a href="{% url 'llistar_albarans' %}" class="btn btn-outline-secondary">
-            <i class="bi bi-arrow-left"></i> Tornar al llistat
+        <h1>Nova Linia - Albara {{ albara.numero_albara }}</h1>
+        <a href="{% url 'detall_albara' numero_albara=albara.numero_albara %}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Tornar a l'albara
         </a>
     </div>
+
     <div class="card">
         <div class="card-header bg-dark text-white">
-            <h5 class="mb-0">Omple les dades del nou albara</h5>
+            <h5 class="mb-0">Omple les dades de la nova linia</h5>
         </div>
         <div class="card-body">
             <form method="post" class="needs-validation" novalidate>
                 {% csrf_token %}
+
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <label for="client" class="form-label">Client *</label>
-                        {% if clients %}
-                        <select id="client" name="client" class="form-select" required>
-                            <option value="" selected disabled>Selecciona un client</option>
-                            {% for client in clients %}
-                            <option value="{{ client.codi_client }}" {% if clients|length == 1 %} selected {% endif %}>
-                                {{ client.nom_comercial }}
-                            </option>
-                            {% endfor %}
-                        </select>
-                        {% else %}
-                        <div class="alert alert-danger m-0 py-1 d-flex align-items-center">
-                            <i class="bi bi-info-circle fs-4 me-3 "></i>
-                            <p class="m-0"><b>Sense clients actius</b></p>
+                        <label for="nom_producte" class="form-label">Nom Producte *</label>
+                        <input type="text" class="form-control" id="nom_producte" name="nom_producte"
+                               placeholder="Ex: Taronja" required>
+                        <div class="invalid-feedback">
+                            Introdueix el nom del producte.
                         </div>
-                        {% endif %}
                     </div>
-                    <div class="col-md-6">
-                        <label for="data_entrega_prevista" class="form-label">Data entrega prevista *</label>
-                        <input type="date" class="form-control" id="data_entrega_prevista" name="data_entrega_prevista"
-                               value="{% now 'Y-m-d' %}" required>
+                    <div class="col-md-3">
+                        <label for="quantitat" class="form-label">Quantitat *</label>
+                        <input type="number" class="form-control" id="quantitat" name="quantitat"
+                               min="1" value="1" required>
+                        <div class="invalid-feedback">
+                            Introdueix una quantitat vàlida.
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="preu_unitari" class="form-label">Preu Unitari *</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="preu_unitari" name="preu_unitari"
+                                   placeholder="0.00" required>
+                            <span class="input-group-text rounded-end">€</span>
+                            <div class="invalid-feedback">
+                                Introdueix un preu vàlid.
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
+
                 <div class="row mb-3">
                     <div class="col-md-12">
-                        <label for="observacions" class="form-label">Observacions</label>
-                        <textarea type="text" class="form-control" id="observacions" name="observacions"
-                                  placeholder="Escriu aqui . . ."></textarea>
+                        <label for="notes" class="form-label">Notes</label>
+                        <textarea class="form-control" id="notes" name="notes" rows="3"
+                                  placeholder="Comentaris addicionals..."></textarea>
                     </div>
                 </div>
+
                 <div class="alert alert-info">
                     <small>
                         <i class="bi bi-info-circle"></i>
                         <b>Informació important:</b>
                         <ul class="mb-0 mt-1">
                             <li>Tots els camps marcats amb * són obligatoris.</li>
-                            <li>El numero del albara es generarà automàticament.</li>
-                            <li>El estat d'un nou albara al crear-lo és pendent per defecte.</li>
-                            <li>Un cop creat l'albara podrás afegir linies d'albará.</li>
+                            <li>Un cop creada la linia, podràs veure-la al detall de l'albara.</li>
                         </ul>
                     </small>
                 </div>
+
                 <div class="d-flex justify-content-between mt-4">
-                    <a href="{% url 'llistar_albarans' %}" class="btn btn-secondary">
+                    <a href="{% url 'detall_albara' numero_albara=albara.numero_albara %}" class="btn btn-secondary">
                         <i class="bi bi-x-circle"></i> Cancel·lar
                     </a>
                     <button type="submit" class="btn btn-success">
-                        <i class="bi bi-check-circle"></i> Crear Albara
+                        <i class="bi bi-check-circle"></i> Crear Linia
                     </button>
                 </div>
+
             </form>
         </div>
     </div>

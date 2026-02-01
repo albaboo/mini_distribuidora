@@ -1,10 +1,12 @@
+from decimal import Decimal
+
 from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.views.generic import View, ListView
 
 from mp_app.models import Client
 from mp_app.models import Albara
-from mp_app.models import LlineaAlbara
+from mp_app.models import LiniaAlbara
 
 
 # Create your views here.
@@ -92,8 +94,8 @@ class LlistarAlbaransView(ListView):
 class DetallAlbaraView(View):
     def get(self, request, *args, **kwargs):
         albara = Albara.objects.get(numero_albara=self.kwargs['numero_albara'])
-        llinees = albara.llinees.all()
-        return render(request, "albara/detall_albara.html", {'albara': albara, 'llinees': llinees})
+        linies = albara.linies.all()
+        return render(request, "albara/detall_albara.html", {'albara': albara, 'linies': linies})
 
 
 # /albarans/<numero_albara>/editar/
@@ -157,46 +159,46 @@ class NouAlbaraClientView(View):
 
         return redirect('detall_albara', numero_albara=albara.numero_albara)
 
-# /llinees/<id>/
-class DetallLlineaView(View):
+# /linies/<id>/
+class DetallLiniaView(View):
     def get(self, request, *args, **kwargs):
-        llinea = LlineaAlbara.objects.get(id=self.kwargs['id'])
-        return render(request, "llinea/detall_llinea.html", {'llinea': llinea})
+        linia = LiniaAlbara.objects.get(id=self.kwargs['id'])
+        return render(request, "linia/detall_linia.html", {'linia': linia})
 
-# /llinees/<id>/editar/
-class EditarLlineaView(View):
+# /linies/<id>/editar/
+class EditarLiniaView(View):
     def get(self, request, *args, **kwargs):
-        llinea = LlineaAlbara.objects.get(id=self.kwargs['id'])
-        return render(request, "llinea/editar_llinea.html", {'llinea': llinea})
+        linia = LiniaAlbara.objects.get(id=self.kwargs['id'])
+        return render(request, "linia/editar_linia.html", {'linia': linia})
 
     def post(self, request, *args, **kwargs):
-        llinea = LlineaAlbara.objects.get(id=self.kwargs['id'])
-        llinea.nom_producte = request.POST.get('nom_producte')
-        llinea.quantitat = request.POST.get('quantitat')
-        llinea.preu_unitari = request.POST.get('preu_unitari')
-        llinea.notes = request.POST.get('notes')
+        linia = LiniaAlbara.objects.get(id=self.kwargs['id'])
+        linia.nom_producte = request.POST.get('nom_producte')
+        linia.quantitat = request.POST.get('quantitat')
+        linia.preu_unitari = request.POST.get('preu_unitari')
+        linia.notes = request.POST.get('notes')
 
-        llinea.save()
+        linia.save()
 
-        return redirect('detall_llinea', id=llinea.id)
+        return redirect('detall_linia', id=linia.id)
 
-# /llinees/nova/<numero_albara>
-class NovaLlineaView(View):
+# /linies/nova/<numero_albara>
+class NovaLiniaView(View):
     def get(self, request, *args, **kwargs):
         albara = Albara.objects.get(numero_albara=self.kwargs['numero_albara'])
-        return render(request, "llinea/nova_llinea.html", {'albara': albara})
+        return render(request, "linia/nova_linia.html", {'albara': albara})
 
     def post(self, request, *args, **kwargs):
         albara = Albara.objects.get(numero_albara=self.kwargs['numero_albara'])
-        llinea = LlineaAlbara.objects.create(
+        linia = LiniaAlbara.objects.create(
             albara=albara,
             nom_producte=request.POST.get('nom_producte'),
-            quantitat=request.POST.get('quantitat'),
-            preu_unitari=request.POST.get('preu_unitari'),
+            quantitat=int(request.POST.get('quantitat')),
+            preu_unitari=Decimal(request.POST.get('preu_unitari')),
             notes=request.POST.get('notes')
         )
 
-        return redirect('detall_llinea', id=llinea.id)
+        return redirect('detall_linia', id=linia.id)
 
 class HomeView(View):
     def get(self, request, *args, **kwargs):

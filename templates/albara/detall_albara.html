@@ -57,16 +57,16 @@
         <a href="{% url 'editar_albara' albara.numero_albara %}" class="btn btn-secondary me-2">
             <i class="bi bi-pencil-square"></i> Editar albara
         </a>
-        <a href="{% url 'nova_llinea' albara.numero_albara %}" class="btn btn-primary">
-            <i class="bi bi-file-earmark-plus"></i> Nova llinea
+        <a href="{% url 'nova_linia' albara.numero_albara %}" class="btn btn-primary">
+            <i class="bi bi-file-earmark-plus"></i> Nova linia
         </a>
     </div>
     <div class="card">
         <div class="card-header bg-light">
-            <h3 class="mb-0">Llinees d'albarans</h3>
+            <h3 class="mb-0">Linies d'albarans</h3>
         </div>
         <div class="card-body">
-            {% if llinees %}
+            {% if linies %}
             <div class="table-responsive">
                 <table class="table table-borderless table-striped table-hover">
                     <thead class="table-dark">
@@ -78,12 +78,12 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for llinea in llinees %}
-                    <tr style='cursor: pointer;' onclick="window.location.href='{% url 'detall_llinea' llinea.id %}';">
-                        <td>{{ llinea.nom_producte }}</td>
-                        <td>{{ llinea.quantitat }}</td>
-                        <td class="d-none d-lg-table-cell">{{ llinea.preu_unitari }}</td>
-                        <td>{{ llinea.subtotal }}</td>
+                    {% for linia in linies %}
+                    <tr style='cursor: pointer;' onclick="window.location.href='{% url 'detall_linia' linia.id %}';">
+                        <td>{{ linia.nom_producte }}</td>
+                        <td>{{ linia.quantitat }}</td>
+                        <td class="d-none d-lg-table-cell">{{ linia.preu_unitari }}</td>
+                        <td>{{ linia.subtotal }}</td>
                     </tr>
                     {% endfor %}
                     </tbody>
@@ -92,7 +92,7 @@
             <div class="alert alert-info mt-3">
                 <div class="row">
                     <div class="col-md-6">
-                        <b>Total llinees:</b> {{ llinees|length }}
+                        <b>Total linies:</b> {{ linies|length }}
                     </div>
                     <div class="col-md-6 text-end">
                         <b>Total:</b>
@@ -103,7 +103,7 @@
             {% else %}
             <div class="alert alert-warning text-center">
                 <i class="bi bi-exclamation-triangle"></i>
-                Aquest albara encara no té cap llinea.
+                Aquest albara encara no té cap linia.
             </div>
             {% endif %}
         </div>
