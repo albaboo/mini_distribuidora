@@ -26,13 +26,14 @@ urlpatterns = [
     path('clients/<str:codi_client>/', views.DetallClientView.as_view(), name='detall_client'),
     path('clients/<str:codi_client>/editar/', views.EditarClientView.as_view(), name='editar_client'),
     path('albarans/', views.LlistarAlbaransView.as_view(), name='llistar_albarans'),
-    path('albarans/nou/', views.NouAlbaraView.as_view(), name='nou_albara'),
-    path('albarans/nou/<str:codi_client>/', views.NouAlbaraClientView.as_view(), name='nou_albara_client'),
+    path('albarans/nova/', views.NouAlbaraView.as_view(), name='nou_albara'),
+    path('albarans/nova/<str:codi_client>/', views.NouAlbaraClientView.as_view(), name='nou_albara_client'),
     path('albarans/<str:numero_albara>/', views.DetallAlbaraView.as_view(), name='detall_albara'),
     path('albarans/<str:numero_albara>/editar/', views.EditarAlbaraView.as_view(), name='editar_albara'),
     path('linies/nova/<str:numero_albara>/', views.NovaLiniaView.as_view(), name='nova_linia'),
     path('linies/<str:id>/', views.DetallLiniaView.as_view(), name='detall_linia'),
     path('linies/<str:id>/editar/', views.EditarLiniaView.as_view(), name='editar_linia'),
+    path('consulta/albara/<str:numero_albara>/', views.ConsultaAlbaraView.as_view(), name='editar_linia'),
 ]
 
 handler404 = 'mp_app.views.page_not_found'

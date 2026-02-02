@@ -121,7 +121,7 @@ class EditarAlbaraView(View):
         return redirect('detall_albara', numero_albara=albara.numero_albara)
 
 
-# /albarans/nou/
+# /albarans/nova/
 class NouAlbaraView(View):
     def get(self, request, *args, **kwargs):
         clients = Client.objects.filter(actiu=True)
@@ -142,7 +142,7 @@ class NouAlbaraView(View):
         return redirect('detall_albara', numero_albara=albara.numero_albara)
 
 
-# /albarans/nou/<codi_client>/
+# /albarans/nova/<codi_client>/
 class NouAlbaraClientView(View):
     def get(self, request, *args, **kwargs):
         clients = [Client.objects.get(codi_client=self.kwargs['codi_client'])]
@@ -159,11 +159,13 @@ class NouAlbaraClientView(View):
 
         return redirect('detall_albara', numero_albara=albara.numero_albara)
 
+
 # /linies/<id>/
 class DetallLiniaView(View):
     def get(self, request, *args, **kwargs):
         linia = LiniaAlbara.objects.get(id=self.kwargs['id'])
         return render(request, "linia/detall_linia.html", {'linia': linia})
+
 
 # /linies/<id>/editar/
 class EditarLiniaView(View):
@@ -182,6 +184,7 @@ class EditarLiniaView(View):
 
         return redirect('detall_linia', id=linia.id)
 
+
 # /linies/nova/<numero_albara>
 class NovaLiniaView(View):
     def get(self, request, *args, **kwargs):
@@ -199,6 +202,19 @@ class NovaLiniaView(View):
         )
 
         return redirect('detall_linia', id=linia.id)
+
+
+# /consulta/albara/<numero_albara>/
+class ConsultaAlbaraView(View):
+    def get(self, request, *args, **kwargs):
+        try:
+            albara = Albara.objects.get(numero_albara=self.kwargs['numero_albara'])
+            linies = albara.linies.all()
+            return render(request, "consulta/resultat_albara.html",
+                          {'albara': albara, 'linies': linies, 'user': self.request.user})
+        except:
+            return render(request, "error/albara-400.html", status=404)
+
 
 class HomeView(View):
     def get(self, request, *args, **kwargs):
