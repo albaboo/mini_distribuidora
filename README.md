@@ -104,3 +104,8 @@ Puedes usarlo, modificarlo y adaptarlo libremente.
 Desarrollado por **albaboo**  
 Proyecto educativo / práctico para gestión básica de distribuidoras.
 
+---
+
+
+More info [here](https://deepwiki.com/albaboo/mini_distribuidora)
+
