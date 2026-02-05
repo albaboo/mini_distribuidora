@@ -33,7 +33,8 @@ urlpatterns = [
     path('linies/nova/<str:numero_albara>/', views.NovaLiniaView.as_view(), name='nova_linia'),
     path('linies/<str:id>/', views.DetallLiniaView.as_view(), name='detall_linia'),
     path('linies/<str:id>/editar/', views.EditarLiniaView.as_view(), name='editar_linia'),
-    path('consulta/albara/<str:numero_albara>/', views.ConsultaAlbaraView.as_view(), name='editar_linia'),
+    path('consulta/albara/<str:numero_albara>/', views.ConsultaAlbaraView.as_view(), name='consulta_albara'),
+    path('consulta/albara/', views.ConsultaFormulariAlbaraView.as_view(), name='cercar_albara'),
 ]
 
 handler404 = 'mp_app.views.page_not_found'

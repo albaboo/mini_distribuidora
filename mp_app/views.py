@@ -204,14 +204,27 @@ class NovaLiniaView(View):
         return redirect('detall_linia', id=linia.id)
 
 
+# /consulta/albara
+class ConsultaFormulariAlbaraView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, "consulta/formulari_albara.html")
+
+    def post(self, request, *args, **kwargs):
+        numero_albara = request.POST.get('numero_albara')
+        return redirect('consulta_albara', numero_albara=numero_albara)
+
+
 # /consulta/albara/<numero_albara>/
 class ConsultaAlbaraView(View):
     def get(self, request, *args, **kwargs):
         try:
             albara = Albara.objects.get(numero_albara=self.kwargs['numero_albara'])
-            linies = albara.linies.all()
-            return render(request, "consulta/resultat_albara.html",
-                          {'albara': albara, 'linies': linies, 'user': self.request.user})
+            if albara:
+                linies = albara.linies.all()
+                return render(request, "consulta/resultat_albara.html",
+                              {'albara': albara, 'linies': linies, 'user': self.request.user})
+            else:
+                return render(request, "error/albara-400.html", status=404)
         except:
             return render(request, "error/albara-400.html", status=404)
 
