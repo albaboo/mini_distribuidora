@@ -74,24 +74,6 @@ mini_distribuidora/
 
 ---
 
-## 🧪 Tests
-
-Para ejecutar los tests (si existen):
-```bash
-python manage.py test
-```
-
----
-
-## 💡 Posibles mejoras futuras
-
-- Autenticación y permisos de usuario
-- Exportación de albaranes a PDF o Excel
-- Filtros avanzados por fecha y estado
-- API REST con Django Rest Framework
-
----
-
 ## 📄 Licencia
 
 Este proyecto se distribuye bajo la licencia **MIT**.  
